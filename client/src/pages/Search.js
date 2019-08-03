@@ -12,13 +12,9 @@ class Search extends Component {
         books: []
     };
 
-    // When this component mounts, search the Giphy API for pictures of kittens
-    //   componentDidMount() {
-    //     this.loadBooks();
-    //   }
     loadBooks = () => {
         API.searchBooks(this.state.search)
-            .then(res => this.setState({books: res.data },console.log(res.data)))
+            .then(res => this.setState({books:res.data.items},console.log(res.data.items)))
             .catch(err => console.log(err));
 
     };
@@ -33,7 +29,6 @@ class Search extends Component {
     // When the form is submitted, search the Giphy API for `this.state.search`
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log(this.state.books);
         this.loadBooks(this.state.search);
     };
 
@@ -60,9 +55,14 @@ class Search extends Component {
                     <List>
 
                         {this.state.books.map(book => (
-                            <ListItem key={book.id}>
-                                <a href={book.previewLink}>
-                                    Preview Link                    </a>
+                            <ListItem key={book.id}      >                                    <strong>{book.volumeInfo.title}</strong>
+                            <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+
+                                {/* <a href={book.volumeInfo.previewLink}>
+                                    Preview Link                    </a>*/}
+                                    <ViewBtn href={book.volumeInfo.previewLink}/> 
+                                    <SaveBtn
+                                    onClick ={this.handleSaveClick} />
                             </ListItem>
                         ))}
 
