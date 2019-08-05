@@ -5,7 +5,7 @@ import "./style.css";
 // That way we don't have to define them all individually
 function ViewBtn(props) {
   return (
-    <button className="view-btn" {...props} ><a href={props.href}>View</a>
+    <button className="view-btn" {...props} ><a target="_blank" href={props.href}>View</a>
       
     </button>
   );

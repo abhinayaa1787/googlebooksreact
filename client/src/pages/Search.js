@@ -8,7 +8,7 @@ import API from "../utils/API";
 
 class Search extends Component {
     state = {
-        search: "",
+        // search: "",
         books: []
     };
 
@@ -18,6 +18,19 @@ class Search extends Component {
             .catch(err => console.log(err));
 
     };
+
+    create = (id,title,image,link) => {
+        API.saveBook({
+            id: id,
+            title: title,
+            image: image,
+            link: link
+        })
+            .then(res => {this.loadBooks();console.log(res.data)})
+            .catch(err => console.log(err))
+          
+        }
+    
     handleInputChange = event => {
         const { search, value } = event.target;
         this.setState({
@@ -51,7 +64,7 @@ class Search extends Component {
         </FormBtn>
                 </form>
                 <div>
-                    {/* // {this.state.books.length ? ( */}
+                     {this.state.books.length ? (
                     <List>
 
                         {this.state.books.map(book => (
@@ -62,15 +75,16 @@ class Search extends Component {
                                     Preview Link                    </a>*/}
                                     <ViewBtn href={book.volumeInfo.previewLink}/> 
                                     <SaveBtn
-                                    onClick ={this.handleSaveClick} />
+                                    onClick ={
+                                        () => this.create(book.id,book.volumeInfo.title,book.volumeInfo.imageLinks.smallThumbnail,book.volumeInfo.previewLink)} />
                             </ListItem>
                         ))}
 
                     </List>
 
-                    {/* // : (
-//               <h3>No Results to Display</h3>
-//             )} */}
+                    ) : (
+              <h3>Search for a book</h3>
+            )} 
                 </div>
             </div>
         );
