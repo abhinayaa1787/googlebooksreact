@@ -4,8 +4,6 @@ import Jumbotron from "../components/Jumbotron";
 import ViewBtn from "../components/ViewBtn";
 
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-// import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 
 class Saved extends Component {
