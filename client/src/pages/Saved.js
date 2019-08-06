@@ -54,7 +54,7 @@ class Saved extends Component {
                           alt={book.title} style=
                           {{ textAlign: 'center', border: 'solid 1px black', boxShadow: '5px  5px grey', width: '200px', height: '200px' }} />
                         <div className="card-body">
-                          <h5 style={{ marginTop: '20px' }}>{book.title}</h5>
+                          <h4 style={{ marginTop: '20px' }}>{book.title}</h4>
                           {/* <p>{book.volumeInfo.description}</p> */}
                           <DeleteBtn
                             onClick={

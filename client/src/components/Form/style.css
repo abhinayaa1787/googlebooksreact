@@ -1,13 +1,14 @@
 .form-control{
     padding:10px;
     margin:50px;
-    width:50%;
-    margin-left:50px;
+    width:85%;
+    margin-left:80px;
 }
 .form-group{
     text-align: center;
 
 }
-.btn{
-    display:inline;
+.btn-success{
+    text-align: center;
+    margin-left:600px;
 }
