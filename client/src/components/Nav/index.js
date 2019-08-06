@@ -10,7 +10,7 @@ Google Books      </a>
       <a className="navbar-brand" href="/">
       Search
       </a>
-      <a className="navbar-brand" href="/api/books">
+      <a className="navbar-brand" href="/books">
       Saved
       </a>
 
