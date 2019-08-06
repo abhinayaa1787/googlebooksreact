@@ -1,0 +1,13 @@
+.form-control{
+    padding:10px;
+    margin:50px;
+    width:50%;
+    margin-left:50px;
+}
+.form-group{
+    text-align: center;
+
+}
+.btn{
+    display:inline;
+}

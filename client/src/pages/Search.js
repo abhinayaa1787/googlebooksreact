@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Form, FormBtn } from "../components/Form";
 import ViewBtn from "../components/ViewBtn";
 import SaveBtn from "../components/SaveBtn";
+import Jumbotron from "../components/Jumbotron";
+
 
 import { List, ListItem } from "../components/List";
 import API from "../utils/API";
@@ -9,33 +11,44 @@ import API from "../utils/API";
 class Search extends Component {
     state = {
         // search: "",
-        books: []
+        books: [],
+isBtnDisabled:false
     };
 
     loadBooks = () => {
-        API.searchBooks(this.state.search)
-            .then(res => this.setState({books:res.data.items},console.log(res.data.items)))
-            .catch(err => console.log(err));
+        if (this.state.search) {
+            API.searchBooks(this.state.search)
+                .then(res => this.setState({ books: res.data.items }))
+                .catch(err => console.log(err))
+        }
+        else {
+            alert("Enter name of a book/part of the bookname to begin search");
+        }
+
+
+
 
     };
 
-    create = (id,title,image,link) => {
-        API.saveBook({
+    create = (id, title, image, link) => {
+        this.setState({isBtnDisabled:true});
+                API.saveBook({
             id: id,
             title: title,
             image: image,
             link: link
         })
-            .then(res => {this.loadBooks();console.log(res.data)})
-            .catch(err => console.log(err))
-          
-        }
-    
+            .then(res => { this.loadBooks(); console.log(res.data) })
+            .catch(err => console.log(err));
+
+
+    }
+
     handleInputChange = event => {
         const { search, value } = event.target;
         this.setState({
-          search: value
-            });
+            search: value
+        });
     };
 
 
@@ -48,6 +61,10 @@ class Search extends Component {
     render() {
         return (
             <div>
+                <Jumbotron >
+<h4>Search and Save books with GoogleBooks </h4>
+                    
+                </Jumbotron>
                 <form>
                     <Form
                         // name="bookSearch"
@@ -64,27 +81,45 @@ class Search extends Component {
         </FormBtn>
                 </form>
                 <div>
-                     {this.state.books.length ? (
-                    <List>
+                    {this.state.books.length > 0 ? (
+                        <List>
 
-                        {this.state.books.map(book => (
-                            <ListItem key={book.id}      >                                    <strong>{book.volumeInfo.title}</strong>
-                            <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+                            {this.state.books.map(book => (
+                                <ListItem key={book.id}      >
+                                <div className="row">    
+                                <div  className="col-2"   ></div>   
+                                <div className="col-8">                   
+                                   <div className="card">
 
-                                {/* <a href={book.volumeInfo.previewLink}>
-                                    Preview Link                    </a>*/}
-                                    <ViewBtn href={book.volumeInfo.previewLink}/> 
-                                    <SaveBtn
-                                    onClick ={
-                                        () => this.create(book.id,book.volumeInfo.title,book.volumeInfo.imageLinks.smallThumbnail,book.volumeInfo.previewLink)} />
-                            </ListItem>
-                        ))}
+                                    <img className="card-img-top" src={book.volumeInfo.imageLinks === undefined
+                                            ? "No image to show"
+                                            : `${book.volumeInfo.imageLinks.thumbnail}`}
+                                            alt={book.volumeInfo.title} style=
+                                            {{textAlign: 'center',border:'solid 1px black', boxShadow:'5px  5px grey',width:'200px',height:'200px'}}/>
+                                    <div className="card-body">     
+                                    <h5 style={{marginTop:'20px'}}>{book.volumeInfo.title}</h5>
+                                    <p>{book.volumeInfo.description}</p>
+                                            <SaveBtn disabled={this.state.isBtnDisabled}
+                                                onClick={
+                                                    () => {this.create(book.id, book.volumeInfo.title, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}}
+                                            >  Save
+                                </SaveBtn>
+                                <ViewBtn href={book.volumeInfo.previewLink} />
 
-                    </List>
+                                    </div>
+                                    <div  className="col-2"   ></div>   
+                                    </div>
+                                    </div>
+                                    </div> 
+
+                                </ListItem>
+                            ))}
+
+                        </List>
 
                     ) : (
-              <h3>Search for a book</h3>
-            )} 
+                            <h3>Search for a book</h3>
+                        )}
                 </div>
             </div>
         );

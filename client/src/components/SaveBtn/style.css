@@ -1,0 +1,16 @@
+.save-btn{
+    float:right;
+    margin-right:15px;
+    padding:5px;
+    background-color:green;
+    color:white;
+    border-radius:5px;
+    font-size:1.2em;
+
+
+}
+
+.save-btn:visited{
+    color: grey; 
+
+}

@@ -1,0 +1,12 @@
+.navbar{
+    background-color:rgb(233, 160, 127);
+    font-size:2em;
+    padding:20px;
+}
+.navbar a{
+    text-decoration: none;
+    color:black;
+    padding:30px;
+
+
+}
